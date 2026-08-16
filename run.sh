@@ -231,7 +231,8 @@ elif [ "$1" = "KAT-Coder-V2.5-Dev-Compact" ]; then
 elif [ "$1" = "KAT-Coder-V2.5-Dev-Mini" ]; then
 # 107t/s
 # https://huggingface.co/mudler/KAT-Coder-V2.5-Dev-APEX-GGUF/tree/main
-./bin/llama-server -m KAT-Coder-V2.5-Dev-APEX-I-Mini.gguf \
+#/disks/white/cfrankb/models/mudler/KAT-Coder-V2.5-Dev-APEX-GGUF
+./bin/llama-server -m mudler/KAT-Coder-V2.5-Dev-APEX-GGUF/KAT-Coder-V2.5-Dev-APEX-I-Mini.gguf \
   --fit on \
     -c 65536 \
     --cache-type-k q8_0 \
