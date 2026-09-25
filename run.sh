@@ -113,10 +113,10 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./bin ./bin/llama-server \
  
 
  
-elif [ "$1" = "Qwen3.6-35B-A3B" ]; then
+elif [ "$1" = "Qwen3.6-35B-A3B-uncensored-heretic" ]; then
 
 ./bin/llama-server \
-  -m  Qwen3.6-35B-A3B-uncensored-heretic-IQ2_M_HQ.gguf \
+  -m  llmfan46/Qwen3.6-35B-A3B-uncensored-heretic-IQ2_M_HQ.gguf \
   --n-cpu-moe 32 \
   --flash-attn on \
   --no-mmap \
@@ -134,6 +134,31 @@ elif [ "$1" = "Qwen3.6-35B-A3B" ]; then
 #  -m "Qwen3.6-35B-A3B-uncensored-heretic-IQ2_M.gguf" \
 #   -ub 128 \
 #  -ngl 99 \
+
+
+elif [ "$1" = "Qwen3.8-27B-Ultra-Uncensored-Heretic" ]; then
+
+./bin/llama-server \
+  -m  llmfan46/Qwen3.8-27B-Ultra-Uncensored-Heretic-Native-MTP-Preserved-Q3_K_M.gguf \
+  --flash-attn on \
+  --jinja \
+-fit on \
+  --spec-type draft-mtp \
+  --spec-draft-n-max 2 \
+  -c 65536 \
+  -t 6 \
+  -b 512 \
+  -ub 1024 \
+  --cache-type-k q8_0 \
+  --cache-type-v q8_0 \
+  -np 1 \
+  --host 0.0.0.0 \
+  --port 5001 
+
+#  -m "Qwen3.6-35B-A3B-uncensored-heretic-IQ2_M.gguf" \
+#   -ub 128 \
+#  -ngl 99 \
+
 
 elif [ "$1" = "laguna-s-2.1-MXFP4_MOE" ]; then
 # Running a 118B Model on 12GB VRAM. Better Qwen 35B?
@@ -443,6 +468,8 @@ bin/llama-server \
     --fit-target 150 \
     --port 5001 \
     --host 0.0.0.0
+ 
+ #https://huggingface.co/abenzerps/K2-Horizon-MoVA-36B-A4B-GGUF
  
 else
     echo "No match for $1"   

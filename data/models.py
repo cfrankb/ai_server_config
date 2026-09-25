@@ -1,5 +1,6 @@
 import json
 import requests
+from datetime import datetime
 
 # curl -X GET "https://openrouter.ai/api/v1/models" > models.json
 
@@ -21,6 +22,11 @@ def process_local_models_json(input_file_path, output_file):
         response = requests.get(url)
         if response.status_code == 200:
             payload = response.json()
+            # Save the remote JSON to a local, datetime-stamped file
+            json_file = datetime.now().strftime("models_%Y%m%d_%H%M%S.json")
+            with open(json_file, "w", encoding="utf-8") as jf:
+                json.dump(payload, jf, indent=2, ensure_ascii=False)
+            print(f"Saved remote JSON to {json_file}")
         else:
             print(f"Error: Status code {response.status_code}")
             return False
@@ -88,4 +94,5 @@ def process_local_models_json(input_file_path, output_file):
 # Run the parser (Assume your downloaded file is named 'openrouter_models.json')
 if __name__ == "__main__":
     #process_local_models_json("models.json",'models260731.tsv')
-    process_local_models_json(None,'models260731x.tsv')
+    output_file = datetime.now().strftime("models_%Y%m%d_%H%M%S.tsv")
+    process_local_models_json(None, output_file)
